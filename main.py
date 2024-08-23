@@ -48,6 +48,11 @@ def main():
                         sys.exit()
                     else:
                         continue
+            if isinstance(sprite, Shot):
+                for asteroid in updatable:
+                    if isinstance(asteroid, Asteroid) and sprite.check_collision(asteroid):
+                        sprite.kill()
+                        asteroid.split()
         for sprite in drawable:
             sprite.draw(screen)
         pygame.display.flip()
