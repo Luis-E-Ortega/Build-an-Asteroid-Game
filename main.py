@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys
 
 from constants import *
 from player import Player
@@ -36,6 +36,13 @@ def main():
         screen.fill("black")
         for sprite in updatable:
             sprite.update(dt)
+            if isinstance(sprite, Player):
+                for asteroid in updatable:
+                    if isinstance(asteroid, Asteroid) and sprite.check_collision(asteroid):
+                        print("Game over!")
+                        sys.exit()
+                    else:
+                        continue
         for sprite in drawable:
             sprite.draw(screen)
         pygame.display.flip()
